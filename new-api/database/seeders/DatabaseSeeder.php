@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Invoices;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,8 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Cria 10 usuários aleatórios
+        User::factory(20)->create();
 
+        // Cria 10 faturas aleatórias
+        Invoices::factory(20)->create();
+
+        // Cria um usuário de teste com dados específicos
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
