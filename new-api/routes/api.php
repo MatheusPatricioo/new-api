@@ -8,4 +8,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/users', [UserController::, 'index']);
+Route::get('/users', [UserController::class, 'index']);
