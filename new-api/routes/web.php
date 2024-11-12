@@ -6,6 +6,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-// Incluir as rotas de API
-require base_path('routes/api.php');
