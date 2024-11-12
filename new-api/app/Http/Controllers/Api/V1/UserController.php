@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Resources\V1\UserResource;
+
+
 
 
 class UserController extends Controller
@@ -14,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::select('name as userName','email as userEmail')->get();
+        return UserResource::collection(User::all());
     }
 
     /**
