@@ -7,57 +7,43 @@ use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Retorna a lista de todas as faturas
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Exibe o formulário de criação de fatura (não usado em API)
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Salva uma nova fatura no banco (implementação futura)
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // Mostra uma fatura específica pelo ID
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Exibe o formulário de edição de fatura (não usado em API)
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Atualiza uma fatura existente pelo ID (implementação futura)
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Exclui uma fatura pelo ID (implementação futura)
     public function destroy(string $id)
     {
         //

@@ -7,62 +7,45 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Resources\V1\UserResource;
 
-
-
-
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Retorna a lista de todos os usuários
     public function index()
     {
         return UserResource::collection(User::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Exibe o formulário de criação de usuário (não usado em API)
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Salva um novo usuário no banco (implementação futura)
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Mostra um usuário específico pelo ID
+    public function show(User $user)
     {
-        //
+        return new UserResource($user);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Exibe o formulário de edição de usuário (não usado em API)
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Atualiza os dados de um usuário pelo ID (implementação futura)
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Exclui um usuário pelo ID (implementação futura)
     public function destroy(string $id)
     {
         //
