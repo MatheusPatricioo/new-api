@@ -26,6 +26,7 @@ class InvoiceResource extends JsonResource
             'payment_date' => $paid
                 ? Carbon::parse($this->payment_date)->format('d/m/Y H:i:s')
                 : 'Não disponível',
+            'paymentSiunce' => $paid ? Carbon::parse($this->payment_date)->diffForHumans():Null
         ];
     }
 }
