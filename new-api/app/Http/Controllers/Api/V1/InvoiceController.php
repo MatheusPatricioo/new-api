@@ -12,7 +12,7 @@ class InvoiceController extends Controller
     // Retorna a lista de todas as faturas
     public function index()
     {
-        return InvoiceResource::collection(Invoice::all());
+        return InvoiceResource::collection(Invoice::with('user')->get());
     }
 
     // Exibe o formulário de criação de fatura (não usado em API)
