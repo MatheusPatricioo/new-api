@@ -9,6 +9,14 @@ class Invoice extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+            'user_id' ,
+            'type' ,
+            'paid',
+            'payment_date',
+            'value',
+    ];
+
     // Relação de belongsTo indicando que cada Invoice pertence a um usuário
     public function user()
     {

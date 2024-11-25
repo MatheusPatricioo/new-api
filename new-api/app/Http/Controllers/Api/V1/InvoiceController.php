@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use App\Http\Resources\V1\InvoiceResource;
 use Illuminate\Support\Facades\Validator;
 class InvoiceController extends Controller
 {
+    use HttpResponses;
     // Retorna a lista de todas as faturas
     public function index()
     {
@@ -32,13 +34,16 @@ class InvoiceController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return $this->error('Data Invalid', 422, $validator->errors());
         }
 
-        // Cria a fatura após validação
-        $invoice = Invoice::create($request->all());
+        $created = invoice::create($validator->validated());
 
-        return response()->json(new InvoiceResource($invoice), 201);
+        if ($created) {
+            return $this->response('Invoice created', 200, $created);
+        }
+
+        return $this->error('Invoice not created', 400);
     }
 
 
