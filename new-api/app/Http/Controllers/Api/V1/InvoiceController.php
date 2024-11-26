@@ -37,10 +37,12 @@ class InvoiceController extends Controller
             return $this->error('Data Invalid', 422, $validator->errors());
         }
 
-        $created = invoice::create($validator->validated());
+        $created = Invoice::create($validator->validated());
 
         if ($created) {
-            return $this->response('Invoice created', 200, $created);
+            return $this->response('Invoice created', 200,  new InvoiceResource
+            ($created->load('user')));
+
         }
 
         return $this->error('Invoice not created', 400);
@@ -62,7 +64,17 @@ class InvoiceController extends Controller
     // Atualiza uma fatura existente pelo ID (implementação futura)
     public function update(Request $request, string $id)
     {
-        //
+         $validator = Validator::make($request->all(), [
+            'user_id' => 'required',
+            'type' => 'required|max:1',
+            'paid' => 'required|numeric|between:0,1',
+            'value' => 'required|numeric|',
+            'payment_date' => 'nullable',
+         ]);
+
+         if ($validator->fails()) {
+            return $this->error('validation failed', 422, $validator->errors());
+         }
     }
 
     // Exclui uma fatura pelo ID (implementação futura)
