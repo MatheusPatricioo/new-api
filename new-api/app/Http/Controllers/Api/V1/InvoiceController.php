@@ -29,8 +29,8 @@ class InvoiceController extends Controller
             'user_id' => 'required|exists:users,id',
             'type' => 'required|string|max:1',
             'paid' => 'required|boolean',
-            'payment_date' => 'nullable|date',
             'value' => 'required|numeric|between:1,9999.99',
+            'payment_date' => 'nullable|date_format:Y-m-d H:i:s',
         ]);
 
         if ($validator->fails()) {
@@ -64,22 +64,34 @@ class InvoiceController extends Controller
     // Atualiza uma fatura existente pelo ID (implementação futura)
     public function update(Request $request, string $id)
     {
-         $validator = Validator::make($request->all(), [
-            'user_id' => 'required',
-            'type' => 'required|max:1',
-            'paid' => 'required|numeric|between:0,1',
-            'value' => 'required|numeric|',
-            'payment_date' => 'nullable',
-         ]);
+        // Validar os dados recebidos
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|exists:users,id',
+            'type' => 'required|string|max:1',
+            'paid' => 'required|boolean',
+            'value' => 'required|numeric|between:1,9999.99',
+            'payment_date' => 'nullable|date_format:Y-m-d H:i:s',
+        ]);
 
-         if ($validator->fails()) {
-            return $this->error('validation failed', 422, $validator->errors());
-         }
+        if ($validator->fails()) {
+            return $this->error('Validation failed', 422, $validator->errors());
+        }
+
+        // Procurar a fatura pelo ID
+        $invoice = Invoice::find($id);
+
+        if (!$invoice) {
+            return $this->error('Invoice not found', 404);
+        }
+
+        // Atualizar os dados da fatura
+        $updated = $invoice->update($validator->validated());
+
+        if ($updated) {
+            return $this->response('Invoice updated', 200, new InvoiceResource($invoice->load('user')));
+        }
+
+        return $this->error('Invoice not updated', 400);
     }
 
-    // Exclui uma fatura pelo ID (implementação futura)
-    public function destroy(string $id)
-    {
-        //
-    }
 }
