@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Invoice extends Model
 {
     use HasFactory;
@@ -13,13 +14,17 @@ class Invoice extends Model
             'user_id' ,
             'type' ,
             'paid',
-            'payment_date',
             'value',
+            'payment_date',
     ];
 
     // Relação de belongsTo indicando que cada Invoice pertence a um usuário
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
+    }
+
+    public function filter(Request $request){
+
     }
 }

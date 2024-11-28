@@ -8,13 +8,20 @@ use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use App\Http\Resources\V1\InvoiceResource;
 use Illuminate\Support\Facades\Validator;
+
 class InvoiceController extends Controller
 {
     use HttpResponses;
     // Retorna a lista de todas as faturas
-    public function index()
+    public function index(Request $request)
     {
-        return InvoiceResource::collection(Invoice::with('user')->get());
+        //return InvoiceResource::collection(Invoice::with('user')->get());
+        // return InvoiceResource::collection(Invoice::where([
+        //     ['value', '>', 5000],
+        //     ['paid', '=', 1]
+
+        // ])->with('user')->get());
+        return (new Invoice())->filter($request);
     }
 
     // Exibe o formulário de criação de fatura (não usado em API)
@@ -40,9 +47,7 @@ class InvoiceController extends Controller
         $created = Invoice::create($validator->validated());
 
         if ($created) {
-            return $this->response('Invoice created', 200,  new InvoiceResource
-            ($created->load('user')));
-
+            return $this->response('Invoice created', 200,  new InvoiceResource($created->load('user')));
         }
 
         return $this->error('Invoice not created', 400);
@@ -50,10 +55,11 @@ class InvoiceController extends Controller
 
 
     // Mostra uma fatura específica pelo ID
-    public function show(string $id)
+    public function show(Invoice $invoice)
     {
-        //
+        return new InvoiceResource($invoice->load('user'));
     }
+
 
     // Exibe o formulário de edição de fatura (não usado em API)
     public function edit(string $id)
@@ -92,6 +98,13 @@ class InvoiceController extends Controller
         }
 
         return $this->error('Invoice not updated', 400);
+    }
+    public function destroy(Invoice $invoice)
+    {
+        if ($invoice->delete()) {
+            return $this->response('Invoice deleted', 200);
+        }
+        return $this->error('Invoice not deleted', 400);
     }
 
 }
