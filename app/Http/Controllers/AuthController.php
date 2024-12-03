@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 // 23|3EqyxJQPBQdVFedW4wTMXvVUuIo8N5sEwSOzGw50 -> invoice
 // 24|og2oFelknKk5QNdLhmyHQ26hsSF8umPY7oyGEttT -> user
 // 25|rqAUeXZnGQFRxvcd01moy7Jf5t593EuobJpNAieV -> teste
+// 9|438713jDGvOEoogbirA2t2DFsl70CZimHC6VVDAL teste
 
 class AuthController extends Controller
 {
@@ -19,7 +20,7 @@ class AuthController extends Controller
   {
     if (Auth::attempt($request->only('email', 'password'))) {
       return $this->response('Authorized', 200, [
-        'token' => $request->user()->createToken('invoice')->plainTextToken
+        'token' => $request->user()->createToken('invoice', ['invoice-store', 'invoice-update'])->plainTextToken
       ]);
     }
     return $this->response('Not Authorized', 403);
