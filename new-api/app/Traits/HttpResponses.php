@@ -8,24 +8,23 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 trait HttpResponses
 {
-    // Método para respostas de sucesso
-    public function response($message, $status, $data = [])
-    {
-        return response()->json([
-            'message' => $message,
-            'data' => $data,
-            'status' => $status,
-        ], $status);
-    }
 
-    // Método para respostas de erro
-    public function error($message, $status, $errors = [], $data = [])
-    {
-        return response()->json([
-            'message' => $message,
-            'errors' => $errors,
-            'data' => $data,
-            'status' => $status,
-        ], $status);
-    }
+  public function response(string $message, string|int $status, array|Model|JsonResource $data = [])
+  {
+    return response()->json([
+      'message' => $message,
+      'status' => $status,
+      'data' => $data
+    ], $status);
+  }
+
+  public function error(string $message, string|int $status, array|MessageBag $errors = [], array $data = [])
+  {
+    return response()->json([
+      'message' => $message,
+      'status' => $status,
+      'errors' => $errors,
+      'data' => $data
+    ], $status);
+  }
 }

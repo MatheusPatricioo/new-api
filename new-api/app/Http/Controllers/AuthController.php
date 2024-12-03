@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 // 23|3EqyxJQPBQdVFedW4wTMXvVUuIo8N5sEwSOzGw50 -> invoice
 // 24|og2oFelknKk5QNdLhmyHQ26hsSF8umPY7oyGEttT -> user
 // 25|rqAUeXZnGQFRxvcd01moy7Jf5t593EuobJpNAieV -> teste
-// 5|nr2ZzhJ4mpARMzomWFfp9gaGQ5v5gNkMTo4FzRMC2e82e25b - login teste
 
 class AuthController extends Controller
 {
